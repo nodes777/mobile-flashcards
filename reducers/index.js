@@ -3,6 +3,7 @@ import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from "../actions/actions";
 function reducer(state = {}, action) {
   switch (action.type) {
     case RECEIVE_DECKS:
+      console.log("reducer: RECEIVE_DECKS");
       return {
         ...state,
         ...action.decks

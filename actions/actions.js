@@ -4,7 +4,8 @@ export const ADD_CARD = "ADD_CARD";
 
 import { getDecks } from "../utils/helpers";
 
-export function receiveDecks() {
+export function receiveDecks(decks) {
+	console.log("receiveDecks Action");
 	return {
 		type: RECEIVE_DECKS,
 		decks

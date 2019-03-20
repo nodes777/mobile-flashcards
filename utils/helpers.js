@@ -12,7 +12,7 @@ export const getDeck = id => {
 };
 export const saveDeckTitle = title => {
 	//take in a single title argument and add it to the decks.
-	AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData));
+	return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(title));
 };
 export const addCardToDeck = (title, card) => {
 	//will add the card to the list of questions for the deck with the associated title.
