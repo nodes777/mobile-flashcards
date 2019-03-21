@@ -8,25 +8,31 @@ import { getDecks, saveDeckTitle } from "../utils/helpers";
 
 import { receiveDecks } from "../actions/actions";
 
-export class DeckList extends React.Component {
+class DeckList extends React.Component {
+	state = {
+		loading: true
+	};
 	componentDidMount() {
 		const { dispatch } = this.props;
 		// console.log(defaultState);
 		// saveDeckTitle(defaultState).then(decks => {
 		//   console.log(decks);
 		// });
-		getDecks().then(decks => {
-			console.log(`Get Decks: \n${decks}`);
-			dispatch(receiveDecks(decks));
-		});
+		getDecks()
+			.then(results => {
+				const decks = JSON.parse(results);
+				dispatch(receiveDecks(decks));
+			})
+			.then(this.setState({ loading: false }));
 	}
 	render() {
-		console.log("Rendering DeckList " + JSON.stringify(this.props));
+		console.log("Rendering DeckList ");
+		console.log(Object.keys(this.props.decks));
 		return (
 			<View>
 				<Text>Deck List</Text>
-				{Object.keys(this.props).map(deckTitle => {
-					<Text>{deckTitle}</Text>;
+				{Object.keys(this.props.decks).map((deckTitle, i) => {
+					return <Text key={i}>{deckTitle}</Text>;
 				})}
 			</View>
 		);

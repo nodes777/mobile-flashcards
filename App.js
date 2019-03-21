@@ -10,12 +10,11 @@ import { logger } from "./middleware/logger";
 
 import TopStatusBar from "./components/TopStatusBar";
 import { purple, white } from "./utils/colors";
-import { DeckList } from "./components/DeckList";
+import DeckList from "./components/DeckList";
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default class App extends React.Component {
   render() {
-    console.log(reducer);
     return (
       <Provider store={store}>
         <View style={styles.container}>
