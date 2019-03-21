@@ -14,6 +14,7 @@ export default class TopStatusBar extends React.PureComponent {
 					backgroundColor={backgroundColor}
 					{...props}
 				/>
+				<Text>Tet</Text>
 			</View>
 		);
 	}

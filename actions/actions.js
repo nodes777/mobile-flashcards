@@ -18,7 +18,13 @@ export function addDeck(entry) {
 		entry
 	};
 }
-
+export function addDeckTitle(title) {
+	console.log(title);
+	return {
+		type: ADD_DECK,
+		title
+	};
+}
 export function handleRecieveDecks(dispatch) {
 	return dispatch => {
 		dispatch(getDecks());

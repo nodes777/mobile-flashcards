@@ -11,6 +11,7 @@ import { logger } from "./middleware/logger";
 import TopStatusBar from "./components/TopStatusBar";
 import { purple, white } from "./utils/colors";
 import DeckList from "./components/DeckList";
+import NewDeck from "./components/NewDeck";
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default class App extends React.Component {
@@ -20,6 +21,7 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <TopStatusBar backgroundColor={purple} />
           <DeckList />
+          <NewDeck />
         </View>
       </Provider>
     );

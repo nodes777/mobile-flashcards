@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { bindActionCreators } from "redux";
+import { StyleSheet, Text, ScrollView } from "react-native";
+// import { bindActionCreators } from "redux";
 
 import { connect } from "react-redux";
-import { getDecks, saveDeckTitle } from "../utils/helpers";
-//import { defaultState } from "../exampleDataShape";
+import { getDecks, saveDeckTitle, setInitialData } from "../utils/helpers";
+import { defaultState } from "../exampleDataShape";
 
 import { receiveDecks } from "../actions/actions";
 
@@ -14,10 +14,9 @@ class DeckList extends React.Component {
 	};
 	componentDidMount() {
 		const { dispatch } = this.props;
-		// console.log(defaultState);
-		// saveDeckTitle(defaultState).then(decks => {
-		//   console.log(decks);
-		// });
+		setInitialData(defaultState).then(decks => {
+			console.log(decks);
+		});
 		getDecks()
 			.then(results => {
 				const decks = JSON.parse(results);
@@ -27,14 +26,18 @@ class DeckList extends React.Component {
 	}
 	render() {
 		console.log("Rendering DeckList ");
-		console.log(Object.keys(this.props.decks));
+		const { decks } = this.props;
 		return (
-			<View>
+			<ScrollView>
 				<Text>Deck List</Text>
-				{Object.keys(this.props.decks).map((deckTitle, i) => {
-					return <Text key={i}>{deckTitle}</Text>;
+				{Object.keys(decks).map((deckTitle, i) => {
+					return (
+						<Text key={i}>
+							{deckTitle} {/*decks[deckTitle].questions.length*/}
+						</Text>
+					);
 				})}
-			</View>
+			</ScrollView>
 		);
 	}
 }
