@@ -9,24 +9,20 @@ import { defaultState } from "../exampleDataShape";
 import { receiveDecks } from "../actions/actions";
 
 class DeckList extends React.Component {
-	state = {
-		loading: true
-	};
 	componentDidMount() {
 		const { dispatch } = this.props;
 		setInitialData(defaultState).then(decks => {
 			console.log(decks);
 		});
-		getDecks()
-			.then(results => {
-				const decks = JSON.parse(results);
-				dispatch(receiveDecks(decks));
-			})
-			.then(this.setState({ loading: false }));
+		getDecks().then(results => {
+			const decks = JSON.parse(results);
+			dispatch(receiveDecks(decks));
+		});
 	}
 	render() {
 		console.log("Rendering DeckList ");
 		const { decks } = this.props;
+		console.log(decks);
 		return (
 			<ScrollView>
 				<Text>Deck List</Text>

@@ -4,6 +4,7 @@ import {
 	TextInput,
 	View,
 	TouchableOpacity,
+	KeyboardAvoidingView,
 	StyleSheet,
 	Text
 } from "react-native";
@@ -19,11 +20,17 @@ class NewDeck extends React.Component {
 		const { dispatch } = this.props;
 		return (
 			<View>
-				<TextInput
-					style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-					onChangeText={text => this.setState({ text })}
-					value={this.state.text}
-				/>
+				<KeyboardAvoidingView behavior="padding">
+					<TextInput
+						style={{
+							height: 40,
+							borderColor: "gray",
+							borderWidth: 1
+						}}
+						onChangeText={text => this.setState({ text })}
+						value={this.state.text}
+					/>
+				</KeyboardAvoidingView>
 				<TouchableOpacity
 					onPress={() => {
 						saveDeckTitle(this.state.text).then(results => {

@@ -9,9 +9,11 @@ function reducer(state = {}, action) {
         ...action.decks
       };
     case ADD_DECK:
+      console.log("reducer: ADD_DECK");
+      console.log(action);
+      // because we're getting the entire db from AsyncStorage, I just replace it here, no need to include the previous state.
       return {
-        ...state,
-        ...action.deck
+        ...action.newDeckSet
       };
     case ADD_CARD:
       return {

@@ -11,9 +11,14 @@ export const getDeck = id => {
 	//take in a single id argument and return the deck associated with that id.
 };
 export const saveDeckTitle = title => {
-	console.log(title);
 	//take in a single title argument and add it to the decks.
-	const data = { [title]: "" };
+	const data = {
+		[title]: {
+			questions: [],
+			title: title
+		}
+	};
+	console.log("saveDeckTitle");
 	console.log(data);
 	return AsyncStorage.mergeItem(
 		DECKS_STORAGE_KEY,
@@ -21,7 +26,13 @@ export const saveDeckTitle = title => {
 		err => {
 			console.log(err);
 		}
-	);
+	)
+		.then(() => AsyncStorage.getItem(DECKS_STORAGE_KEY))
+		.then(result => {
+			console.log("end saveDeckTitle");
+			console.log(JSON.parse(result));
+			return JSON.parse(result);
+		});
 };
 export const addCardToDeck = (title, card) => {
 	//will add the card to the list of questions for the deck with the associated title.
