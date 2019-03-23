@@ -19,18 +19,17 @@ class NewDeck extends React.Component {
 	render() {
 		const { dispatch } = this.props;
 		return (
-			<View>
-				<KeyboardAvoidingView behavior="padding">
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: "gray",
-							borderWidth: 1
-						}}
-						onChangeText={text => this.setState({ text })}
-						value={this.state.text}
-					/>
-				</KeyboardAvoidingView>
+			<KeyboardAvoidingView behavior="padding">
+				<TextInput
+					style={{
+						height: 40,
+						borderColor: "gray",
+						borderWidth: 1
+					}}
+					onChangeText={text => this.setState({ text })}
+					value={this.state.text}
+				/>
+
 				<TouchableOpacity
 					onPress={() => {
 						saveDeckTitle(this.state.text).then(results => {
@@ -45,7 +44,7 @@ class NewDeck extends React.Component {
 						<Text style={styles.buttonText}>Save Deck</Text>
 					</View>
 				</TouchableOpacity>
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 }

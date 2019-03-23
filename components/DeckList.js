@@ -1,12 +1,30 @@
 import React from "react";
-import { StyleSheet, Text, ScrollView } from "react-native";
-// import { bindActionCreators } from "redux";
-
+import { StyleSheet, Text, ScrollView, TouchableOpacity } from "react-native";
+import { TabNavigator, StackNavigator } from "react-navigation";
 import { connect } from "react-redux";
+
 import { getDecks, saveDeckTitle, setInitialData } from "../utils/helpers";
+import { purple, white } from "../utils/colors";
 import { defaultState } from "../exampleDataShape";
 
 import { receiveDecks } from "../actions/actions";
+import { DeckView } from "./DeckView";
+
+// need to render DeckListNavigator somewhere
+const DeckListNavigator = createStackNavigator({
+	Home: {
+		screen: DeckList
+	},
+	DeckView: {
+		screen: DeckView,
+		navigationOptions: {
+			headerTintColor: white,
+			headerStyle: {
+				backgroundColor: purple
+			}
+		}
+	}
+});
 
 class DeckList extends React.Component {
 	componentDidMount() {
@@ -28,9 +46,17 @@ class DeckList extends React.Component {
 				<Text>Deck List</Text>
 				{Object.keys(decks).map((deckTitle, i) => {
 					return (
-						<Text key={i}>
-							{deckTitle} {/*decks[deckTitle].questions.length*/}
-						</Text>
+						<TouchableOpacity
+							key={i}
+							onPress={() =>
+								this.props.navigation.navigate(
+									"DeckView",
+									decks[deckTitle]
+								)
+							}
+						>
+							{deckTitle} {decks[deckTitle].questions.length}
+						</TouchableOpacity>
 					);
 				})}
 			</ScrollView>
