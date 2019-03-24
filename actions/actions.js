@@ -19,8 +19,7 @@ export function addDeck(entry) {
 	};
 }
 export function addDeckTitle(newDeckSet) {
-	console.log("addDeckTitle");
-	console.log(newDeckSet);
+	console.log("addDeckTitle Action");
 	return {
 		type: ADD_DECK,
 		newDeckSet

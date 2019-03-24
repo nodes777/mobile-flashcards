@@ -33,9 +33,6 @@ class NewDeck extends React.Component {
 				<TouchableOpacity
 					onPress={() => {
 						saveDeckTitle(this.state.text).then(results => {
-							console.log(
-								"Results after saveDeckTitle: " + results
-							);
 							dispatch(addDeckTitle(results));
 						});
 					}}

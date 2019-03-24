@@ -15,10 +15,11 @@ class DeckView extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
 		return (
 			<View>
-				<Text>{this.props.deckName}</Text>
-				<Text>{this.props.numberOfCards}</Text>
+				<Text>this.props.deckName</Text>
+				<Text>this.props.numberOfCards</Text>
 				<TouchableOpacity>Add Card</TouchableOpacity>
 				<TouchableOpacity>Start</TouchableOpacity>
 			</View>
