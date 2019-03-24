@@ -16,11 +16,12 @@ function reducer(state = {}, action) {
         ...action.newDeckSet
       };
     case ADD_CARD:
+      console.log("reducer: ADD_CARD");
       return {
         ...state,
         [action.deckTitle]: {
           ...state[action.deckTitle],
-          ...action.card
+          questions: [action.deckTitle].questions.concat[action.question]
         }
       };
     default:

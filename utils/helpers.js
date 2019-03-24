@@ -34,8 +34,22 @@ export const saveDeckTitle = title => {
 			return JSON.parse(result);
 		});
 };
-export const addCardToDeck = (title, card) => {
+export const saveCardToDeck = updatedState => {
 	//will add the card to the list of questions for the deck with the associated title.
+	console.log("saveCardToDeck helper");
+	return AsyncStorage.mergeItem(
+		DECKS_STORAGE_KEY,
+		JSON.stringify(updatedState),
+		err => {
+			console.log(err);
+		}
+	)
+		.then(() => AsyncStorage.getItem(DECKS_STORAGE_KEY))
+		.then(result => {
+			console.log("saveCardToDeck");
+			console.log(JSON.parse(result));
+			return JSON.parse(result);
+		});
 };
 
 export const setInitialData = data => {

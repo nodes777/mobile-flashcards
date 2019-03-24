@@ -15,6 +15,7 @@ class DeckView extends React.Component {
 	}
 
 	render() {
+		console.log("DeckView props: ");
 		console.log(this.props);
 		return (
 			<View>

@@ -30,3 +30,10 @@ export function handleRecieveDecks(dispatch) {
 		dispatch(getDecks());
 	};
 }
+export function addCard(card, deckTitle) {
+	return {
+		type: ADD_CARD,
+		question: card,
+		deckTitle: deckTitle
+	};
+}
