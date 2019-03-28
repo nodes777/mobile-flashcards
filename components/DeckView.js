@@ -15,14 +15,18 @@ class DeckView extends React.Component {
 	}
 
 	render() {
-		console.log("DeckView props: ");
-		console.log(this.props);
 		return (
 			<View>
-				<Text>this.props.deckName</Text>
-				<Text>this.props.numberOfCards</Text>
-				<TouchableOpacity>Add Card</TouchableOpacity>
-				<TouchableOpacity>Start</TouchableOpacity>
+				<Text>{this.props.navigation.state.params.title}</Text>
+				<Text>
+					{this.props.navigation.state.params.questions.length}
+				</Text>
+				<TouchableOpacity>
+					<Text>Add Card</Text>
+				</TouchableOpacity>
+				<TouchableOpacity>
+					<Text>Start</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}
