@@ -61,7 +61,7 @@ export const DeckListNavigator = createStackNavigator({
 
 const Tabs = createBottomTabNavigator({
   DeckList: {
-    screen: DeckList
+    screen: DeckListNavigator
   },
   NewDeck: {
     screen: NewDeck
