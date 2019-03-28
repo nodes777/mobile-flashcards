@@ -21,7 +21,7 @@ function reducer(state = {}, action) {
         ...state,
         [action.deckTitle]: {
           ...state[action.deckTitle],
-          questions: [action.deckTitle].questions.concat[action.question]
+          questions: state[action.deckTitle].questions.concat([action.question])
         }
       };
     default:

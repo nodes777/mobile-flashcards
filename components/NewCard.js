@@ -12,6 +12,23 @@ import { saveCardToDeck } from "../utils/helpers";
 
 import { addCard } from "../actions/actions";
 
+const styles = StyleSheet.create({
+	container: {
+		paddingTop: 60,
+		alignItems: "center"
+	},
+	button: {
+		marginBottom: 30,
+		width: 260,
+		alignItems: "center",
+		backgroundColor: "#2196F3"
+	},
+	buttonText: {
+		padding: 20,
+		color: "white"
+	}
+});
+
 class NewCard extends React.Component {
 	state = {
 		question: "",
@@ -21,8 +38,9 @@ class NewCard extends React.Component {
 		console.log("NewCard: ");
 		console.log(this.props);
 		return (
-			<KeyboardAvoidingView>
+			<KeyboardAvoidingView style={styles.container}>
 				<Text>New Card</Text>
+				<Text>Question</Text>
 				<TextInput
 					style={{
 						height: 40,
@@ -32,6 +50,8 @@ class NewCard extends React.Component {
 					onChangeText={question => this.setState({ question })}
 					value={this.state.question}
 				/>
+
+				<Text>Answer</Text>
 				<TextInput
 					style={{
 						height: 40,
@@ -44,27 +64,25 @@ class NewCard extends React.Component {
 				<TouchableOpacity
 					onPress={() => {
 						//updates redux first
-						dispatch(
-							addCard(this.state, this.props.deck.title)
-							//then update AsyncStorage
-						).then(updatedState => {
-							saveCard(updatedState);
-						});
+						const updatedState = this.props.dispatch(
+							addCard(
+								this.state,
+								this.props.navigation.state.params
+							)
+						);
+						//then update AsyncStorage
+						saveCardToDeck(updatedState);
+						// Go Home
+						this.props.navigation.navigate("Home");
 					}}
 				>
 					<View style={styles.button}>
-						<Text style={styles.buttonText}>Save Deck</Text>
+						<Text style={styles.buttonText}>Save Card</Text>
 					</View>
 				</TouchableOpacity>
 			</KeyboardAvoidingView>
 		);
 	}
 }
-function mapStateToProps(state) {
-	return {};
-}
 
-export default connect(
-	mapStateToProps
-	// Implement map dispatch to props
-)(NewCard);
+export default connect()(NewCard);

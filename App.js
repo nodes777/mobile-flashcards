@@ -13,10 +13,13 @@ import { purple, white } from "./utils/colors";
 import DeckList from "./components/DeckList";
 import NewDeck from "./components/NewDeck";
 import DeckView from "./components/DeckView";
+import NewCard from "./components/NewCard";
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default class App extends React.Component {
   render() {
+    console.log(DeckListNavigator);
+
     return (
       <Provider store={store}>
         <View style={styles.container}>
@@ -35,6 +38,15 @@ export const DeckListNavigator = createStackNavigator({
   },
   DeckView: {
     screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  NewCard: {
+    screen: NewCard,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

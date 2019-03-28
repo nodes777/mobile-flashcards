@@ -9,23 +9,42 @@ import {
 	Text
 } from "react-native";
 
-class DeckView extends React.Component {
-	constructor(props) {
-		super(props);
+const styles = StyleSheet.create({
+	container: {
+		paddingTop: 60,
+		alignItems: "center"
+	},
+	button: {
+		marginBottom: 30,
+		width: 260,
+		alignItems: "center",
+		backgroundColor: "#2196F3"
+	},
+	buttonText: {
+		padding: 20,
+		color: "white"
 	}
+});
 
+class DeckView extends React.Component {
 	render() {
+		const { title, questions } = this.props.navigation.state.params;
 		return (
-			<View>
-				<Text>{this.props.navigation.state.params.title}</Text>
-				<Text>
-					{this.props.navigation.state.params.questions.length}
-				</Text>
-				<TouchableOpacity>
-					<Text>Add Card</Text>
+			<View style={styles.container}>
+				<Text>{title}</Text>
+				<Text>{questions.length} Cards</Text>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => {
+						console.log("Clicked new card");
+						console.log(this.props.navigation);
+						return this.props.navigation.navigate("NewCard", title);
+					}}
+				>
+					<Text style={styles.buttonText}>Add Card</Text>
 				</TouchableOpacity>
-				<TouchableOpacity>
-					<Text>Start</Text>
+				<TouchableOpacity style={styles.button}>
+					<Text style={styles.buttonText}>Start</Text>
 				</TouchableOpacity>
 			</View>
 		);

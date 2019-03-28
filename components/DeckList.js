@@ -22,8 +22,6 @@ class DeckList extends React.Component {
 	render() {
 		const { decks } = this.props;
 		console.log("rendering DeckList");
-		///console.log(this.props);
-		console.log(decks);
 		return (
 			<ScrollView>
 				<Text>Deck List</Text>
@@ -48,7 +46,22 @@ class DeckList extends React.Component {
 		);
 	}
 }
-
+const styles = StyleSheet.create({
+	container: {
+		paddingTop: 60,
+		alignItems: "center"
+	},
+	button: {
+		marginBottom: 30,
+		width: 260,
+		alignItems: "center",
+		backgroundColor: "#2196F3"
+	},
+	buttonText: {
+		padding: 20,
+		color: "white"
+	}
+});
 function mapStateToProps(state) {
 	return {
 		decks: state
