@@ -2,7 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { createStackNavigator } from "react-navigation";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 import thunk from "redux-thunk";
 
 import reducer from "./reducers";
@@ -25,8 +28,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={styles.container}>
           <TopStatusBar backgroundColor={purple} />
-          <DeckListNavigator />
-          <NewDeck />
+          <Tabs />
         </View>
       </Provider>
     );
@@ -54,6 +56,15 @@ export const DeckListNavigator = createStackNavigator({
   Card: {
     screen: Card,
     navigationOptions: stackNavOptions
+  }
+});
+
+const Tabs = createBottomTabNavigator({
+  DeckList: {
+    screen: DeckList
+  },
+  NewDeck: {
+    screen: NewDeck
   }
 });
 

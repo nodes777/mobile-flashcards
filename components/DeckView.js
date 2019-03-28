@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
 class DeckView extends React.Component {
 	render() {
 		const { title, questions } = this.props.navigation.state.params;
+		const deckTitle = title;
 		return (
 			<View style={styles.container}>
 				<Text>{title}</Text>
@@ -44,7 +45,10 @@ class DeckView extends React.Component {
 				<TouchableOpacity
 					style={styles.button}
 					onPress={() => {
-						return this.props.navigation.navigate("Card", title);
+						return this.props.navigation.push("Card", {
+							deckTitle: deckTitle,
+							cardNumber: 0
+						});
 					}}
 				>
 					<Text style={styles.buttonText}>Start</Text>

@@ -23,11 +23,12 @@ class DeckList extends React.Component {
 		const { decks } = this.props;
 		console.log("rendering DeckList");
 		return (
-			<ScrollView>
+			<ScrollView contentContainerStyle={styles.container}>
 				<Text>Deck List</Text>
 				{Object.keys(decks).map((deckTitle, i) => {
 					return (
 						<TouchableOpacity
+							style={styles.button}
 							key={i}
 							onPress={() =>
 								this.props.navigation.navigate(
@@ -36,7 +37,7 @@ class DeckList extends React.Component {
 								)
 							}
 						>
-							<Text>
+							<Text style={styles.buttonText}>
 								{deckTitle} {decks[deckTitle].questions.length}
 							</Text>
 						</TouchableOpacity>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
 		alignItems: "center"
 	},
 	button: {
-		marginBottom: 30,
+		marginBottom: 20,
 		width: 260,
 		alignItems: "center",
 		backgroundColor: "#2196F3"

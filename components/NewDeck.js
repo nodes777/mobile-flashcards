@@ -36,7 +36,7 @@ class NewDeck extends React.Component {
 	render() {
 		const { dispatch } = this.props;
 		return (
-			<KeyboardAvoidingView behavior="padding">
+			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<TextInput
 					style={{
 						height: 40,
