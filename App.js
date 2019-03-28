@@ -14,6 +14,7 @@ import DeckList from "./components/DeckList";
 import NewDeck from "./components/NewDeck";
 import DeckView from "./components/DeckView";
 import NewCard from "./components/NewCard";
+import Card from "./components/Card";
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default class App extends React.Component {
@@ -32,29 +33,30 @@ export default class App extends React.Component {
   }
 }
 
+const stackNavOptions = {
+  headerTintColor: white,
+  headerStyle: {
+    backgroundColor: purple
+  }
+};
 export const DeckListNavigator = createStackNavigator({
   Home: {
     screen: DeckList
   },
   DeckView: {
     screen: DeckView,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: purple
-      }
-    }
+    navigationOptions: stackNavOptions
   },
   NewCard: {
     screen: NewCard,
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: purple
-      }
-    }
+    navigationOptions: stackNavOptions
+  },
+  Card: {
+    screen: Card,
+    navigationOptions: stackNavOptions
   }
 });
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

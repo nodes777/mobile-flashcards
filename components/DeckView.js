@@ -36,14 +36,17 @@ class DeckView extends React.Component {
 				<TouchableOpacity
 					style={styles.button}
 					onPress={() => {
-						console.log("Clicked new card");
-						console.log(this.props.navigation);
 						return this.props.navigation.navigate("NewCard", title);
 					}}
 				>
 					<Text style={styles.buttonText}>Add Card</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.button}>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => {
+						return this.props.navigation.navigate("Card", title);
+					}}
+				>
 					<Text style={styles.buttonText}>Start</Text>
 				</TouchableOpacity>
 			</View>
@@ -51,10 +54,4 @@ class DeckView extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {};
-}
-export default connect(
-	mapStateToProps
-	// Implement map dispatch to props
-)(DeckView);
+export default connect()(DeckView);
