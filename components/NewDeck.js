@@ -41,7 +41,8 @@ class NewDeck extends React.Component {
 					style={{
 						height: 40,
 						borderColor: "gray",
-						borderWidth: 1
+						borderWidth: 1,
+						width: 260
 					}}
 					onChangeText={text => this.setState({ text })}
 					value={this.state.text}

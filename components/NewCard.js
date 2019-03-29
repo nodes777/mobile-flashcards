@@ -36,7 +36,6 @@ class NewCard extends React.Component {
 	};
 	render() {
 		console.log("NewCard: ");
-		console.log(this.props);
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text>New Card</Text>
@@ -45,7 +44,8 @@ class NewCard extends React.Component {
 					style={{
 						height: 40,
 						borderColor: "gray",
-						borderWidth: 1
+						borderWidth: 1,
+						width: 260
 					}}
 					onChangeText={question => this.setState({ question })}
 					value={this.state.question}
@@ -56,7 +56,8 @@ class NewCard extends React.Component {
 					style={{
 						height: 40,
 						borderColor: "gray",
-						borderWidth: 1
+						borderWidth: 1,
+						width: 260
 					}}
 					onChangeText={answer => this.setState({ answer })}
 					value={this.state.answer}
