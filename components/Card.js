@@ -60,35 +60,42 @@ class Card extends React.Component {
 			question = deck.questions[cardNumber - 1].question;
 			answer = deck.questions[cardNumber - 1].answer;
 		}
-		console.log(question);
-		console.log(answer);
 		const score = this.props.navigation.state.params.score || {
 			correct: 0,
 			incorrect: 0
 		};
+		console.log(score);
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text>Card</Text>
-				<Text>
-					{cardNumber}/{cardTotal - 1}
-				</Text>
 
 				{!endOfDeck ? (
 					<View>
+						<Text>
+							{cardNumber}/{cardTotal - 1}
+						</Text>
 						<Text>{question}</Text>
 						{this.state.answerIsShowing && <Text>{answer}</Text>}
 						<TouchableOpacity
+							style={styles.button}
 							onPress={() => {
+								console.log(this.state);
 								this.setState({
 									answerIsShowing: !this.state.answerIsShowing
 								});
 							}}
-						/>
-						{!this.state.answerIsShowing ? (
-							<Text style={styles.buttonText}>Show Answer</Text>
-						) : (
-							<Text style={styles.buttonText}>Hide Answer</Text>
-						)}
+						>
+							{!this.state.answerIsShowing ? (
+								<Text style={styles.buttonText}>
+									Show Answer
+								</Text>
+							) : (
+								<Text style={styles.buttonText}>
+									Hide Answer
+								</Text>
+							)}
+						</TouchableOpacity>
+
 						<TouchableOpacity
 							style={styles.buttonIncorrect}
 							onPress={() => {
@@ -105,11 +112,15 @@ class Card extends React.Component {
 								<Text style={styles.buttonText}>Incorrect</Text>
 							</View>
 						</TouchableOpacity>
+
 						<TouchableOpacity
 							style={styles.buttonCorrect}
 							onPress={() => {
 								// add correct for this deck
-								score.correct = score.correct++;
+								score.correct = score.correct + 1;
+								console.log("score in correct");
+								console.log(score);
+								console.log(score.correct);
 								return this.props.navigation.push("Card", {
 									deckTitle: deckTitle,
 									cardNumber: cardNumber,
@@ -125,7 +136,8 @@ class Card extends React.Component {
 				) : (
 					<View>
 						<Text>
-							{score.correct}/{cardTotal}
+							{score.correct}/{cardTotal - 1} Questions Answered
+							Correctly
 						</Text>
 						<TouchableOpacity
 							style={styles.button}
@@ -133,11 +145,7 @@ class Card extends React.Component {
 								return this.props.navigation.navigate("Home");
 							}}
 						>
-							<View>
-								<Text style={styles.buttonText}>
-									Back to Home
-								</Text>
-							</View>
+							<Text style={styles.buttonText}>Back to Home</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.button}
@@ -148,9 +156,7 @@ class Card extends React.Component {
 								});
 							}}
 						>
-							<View>
-								<Text style={styles.buttonText}>Restart</Text>
-							</View>
+							<Text style={styles.buttonText}>Restart</Text>
 						</TouchableOpacity>
 					</View>
 				)}
