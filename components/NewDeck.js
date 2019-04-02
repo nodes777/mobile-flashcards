@@ -52,6 +52,7 @@ class NewDeck extends React.Component {
 					onPress={() => {
 						saveDeckTitle(this.state.text).then(results => {
 							dispatch(addDeckTitle(results));
+							this.props.navigation.navigate("Home");
 						});
 					}}
 				>

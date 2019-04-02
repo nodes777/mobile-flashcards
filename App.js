@@ -18,12 +18,14 @@ import NewDeck from "./components/NewDeck";
 import DeckView from "./components/DeckView";
 import NewCard from "./components/NewCard";
 import Card from "./components/Card";
+import { setLocalNotification } from "./utils/helpers";
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
   render() {
-    console.log(DeckListNavigator);
-
     return (
       <Provider store={store}>
         <View style={styles.container}>
