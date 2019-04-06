@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "#2196F3"
 	},
+	buttonDisabled: {
+		marginBottom: 30,
+		width: 260,
+		alignItems: "center",
+		backgroundColor: "#808080"
+	},
 	buttonText: {
 		padding: 20,
 		color: "white"
@@ -49,6 +55,7 @@ class NewDeck extends React.Component {
 				/>
 
 				<TouchableOpacity
+					disabled={this.state.text === ""}
 					onPress={() => {
 						saveDeckTitle(this.state.text).then(results => {
 							dispatch(addDeckTitle(results));
@@ -56,7 +63,13 @@ class NewDeck extends React.Component {
 						});
 					}}
 				>
-					<View style={styles.button}>
+					<View
+						style={
+							this.state.text === ""
+								? styles.buttonDisabled
+								: styles.button
+						}
+					>
 						<Text style={styles.buttonText}>Save Deck</Text>
 					</View>
 				</TouchableOpacity>

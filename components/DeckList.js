@@ -11,12 +11,17 @@ import { receiveDecks } from "../actions/actions";
 class DeckList extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
-		setInitialData(defaultState).then(decks => {
-			// console.log(decks);
-		});
-		getDecks().then(results => {
-			const decks = JSON.parse(results);
-			dispatch(receiveDecks(decks));
+
+		getDecks().then(decks => {
+			if (decks === null || undefined) {
+				console.log("Decks are null");
+				setInitialData(defaultState);
+				dispatch(receiveDecks(defaultState));
+			} else {
+				console.log("Decks: ");
+				console.log(decks);
+				dispatch(receiveDecks(decks));
+			}
 		});
 	}
 	render() {

@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "#2196F3"
 	},
+	buttonDisabled: {
+		marginBottom: 30,
+		width: 260,
+		alignItems: "center",
+		backgroundColor: "#808080"
+	},
 	buttonText: {
 		padding: 20,
 		color: "white"
@@ -36,6 +42,7 @@ class NewCard extends React.Component {
 	};
 	render() {
 		console.log("NewCard: ");
+		console.log(this.props);
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text>New Card</Text>
@@ -63,21 +70,31 @@ class NewCard extends React.Component {
 					value={this.state.answer}
 				/>
 				<TouchableOpacity
+					disabled={this.state.text === ""}
 					onPress={() => {
 						//updates redux first
-						const updatedState = this.props.dispatch(
+						const action = this.props.dispatch(
 							addCard(
 								this.state,
 								this.props.navigation.state.params
 							)
 						);
 						//then update AsyncStorage
-						saveCardToDeck(updatedState);
+						console.log("action in NewCard.js: ");
+						console.log(action);
+						saveCardToDeck(action);
 						// Go Home
 						this.props.navigation.navigate("Home");
 					}}
 				>
-					<View style={styles.button}>
+					<View
+						style={
+							this.state.question === "" ||
+							this.state.answer === ""
+								? styles.buttonDisabled
+								: styles.button
+						}
+					>
 						<Text style={styles.buttonText}>Save Card</Text>
 					</View>
 				</TouchableOpacity>

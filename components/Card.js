@@ -8,6 +8,8 @@ import {
 	StyleSheet,
 	Text
 } from "react-native";
+import CardFront from "./CardFront";
+import Results from "./Results";
 
 const styles = StyleSheet.create({
 	container: {
@@ -70,95 +72,62 @@ class Card extends React.Component {
 				<Text>Card</Text>
 
 				{!endOfDeck ? (
-					<View>
-						<Text>
-							{cardNumber}/{cardTotal - 1}
-						</Text>
-						<Text>{question}</Text>
-						{this.state.answerIsShowing && <Text>{answer}</Text>}
-						<TouchableOpacity
-							style={styles.button}
-							onPress={() => {
-								console.log(this.state);
-								this.setState({
-									answerIsShowing: !this.state.answerIsShowing
-								});
-							}}
-						>
-							{!this.state.answerIsShowing ? (
-								<Text style={styles.buttonText}>
-									Show Answer
-								</Text>
-							) : (
-								<Text style={styles.buttonText}>
-									Hide Answer
-								</Text>
-							)}
-						</TouchableOpacity>
-
-						<TouchableOpacity
-							style={styles.buttonIncorrect}
-							onPress={() => {
-								// add incorrect for this deck
-								score.incorrect = score.incorrect++;
-								return this.props.navigation.push("Card", {
-									deckTitle: deckTitle,
-									cardNumber: cardNumber,
-									score: score
-								});
-							}}
-						>
-							<View>
-								<Text style={styles.buttonText}>Incorrect</Text>
-							</View>
-						</TouchableOpacity>
-
-						<TouchableOpacity
-							style={styles.buttonCorrect}
-							onPress={() => {
-								// add correct for this deck
-								score.correct = score.correct + 1;
-								console.log("score in correct");
-								console.log(score);
-								console.log(score.correct);
-								return this.props.navigation.push("Card", {
-									deckTitle: deckTitle,
-									cardNumber: cardNumber,
-									score: score
-								});
-							}}
-						>
-							<View>
-								<Text style={styles.buttonText}>Correct</Text>
-							</View>
-						</TouchableOpacity>
-					</View>
+					<CardFront
+						cardNumber={cardNumber}
+						cardTotal={cardTotal}
+						question={question}
+						answer={answer}
+						answerIsShowing={this.state.answerIsShowing}
+						deckTitle={deckTitle}
+						score={score}
+						toggleAnswer={() => {
+							this.setState({
+								answerIsShowing: !this.state.answerIsShowing
+							});
+						}}
+						incorrectAnswer={() => {
+							// add incorrect for this deck
+							score.incorrect = score.incorrect++;
+							return this.props.navigation.push("Card", {
+								deckTitle: deckTitle,
+								cardNumber: cardNumber,
+								score: score
+							});
+						}}
+						correctAnswer={() => {
+							// add correct for this deck
+							score.correct = score.correct + 1;
+							return this.props.navigation.push("Card", {
+								deckTitle: deckTitle,
+								cardNumber: cardNumber,
+								score: score
+							});
+						}}
+						styles={styles}
+					/>
 				) : (
-					<View>
-						<Text>
-							{score.correct}/{cardTotal - 1} Questions Answered
-							Correctly
-						</Text>
-						<TouchableOpacity
-							style={styles.button}
-							onPress={() => {
-								return this.props.navigation.navigate("Home");
-							}}
-						>
-							<Text style={styles.buttonText}>Back to Home</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							style={styles.button}
-							onPress={() => {
-								return this.props.navigation.navigate("Card", {
-									deckTitle: deckTitle,
-									cardNumber: 0
-								});
-							}}
-						>
-							<Text style={styles.buttonText}>Restart</Text>
-						</TouchableOpacity>
-					</View>
+					<Results
+						cardNumber={cardNumber}
+						cardTotal={cardTotal}
+						question={question}
+						answer={answer}
+						answerIsShowing={this.state.answerIsShowing}
+						deckTitle={deckTitle}
+						score={score}
+						goDeck={() => {
+							return this.props.navigation.navigate("DeckView", {
+								deckTitle: deckTitle,
+								cardNumber: 0
+							});
+						}}
+						restartQuiz={() => {
+							return this.props.navigation.navigate("Card", {
+								deckTitle: deckTitle,
+								cardNumber: 0
+							});
+						}}
+						styles={styles}
+					/>
 				)}
 			</KeyboardAvoidingView>
 		);

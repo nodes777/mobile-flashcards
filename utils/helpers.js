@@ -7,7 +7,9 @@ export const DECKS_STORAGE_KEY = "mobile-flashcards:decks";
 
 export const getDecks = () => {
 	//return all of the decks along with their titles, questions, and answers.
-	return AsyncStorage.getItem(DECKS_STORAGE_KEY);
+	return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(data => {
+		return JSON.parse(data);
+	});
 };
 export const getDeck = id => {
 	//take in a single id argument and return the deck associated with that id.
@@ -36,21 +38,39 @@ export const saveDeckTitle = title => {
 			return JSON.parse(result);
 		});
 };
-export const saveCardToDeck = updatedState => {
+export const saveCardToDeck = action => {
+	// currently getting the action, not the updated state from arg here.
 	//will add the card to the list of questions for the deck with the associated title.
-	console.log("saveCardToDeck helper");
-	return AsyncStorage.mergeItem(
-		DECKS_STORAGE_KEY,
-		JSON.stringify(updatedState),
-		err => {
-			console.log(err);
-		}
-	)
-		.then(() => AsyncStorage.getItem(DECKS_STORAGE_KEY))
-		.then(result => {
-			console.log("saveCardToDeck");
-			console.log(JSON.parse(result));
-			return JSON.parse(result);
+	console.log("saveCardToDeck action: ");
+	console.log(action);
+	return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+		.then(storage => {
+			console.log(storage);
+			const oldStorage = JSON.parse(storage);
+			console.log(oldStorage);
+			const newStorage = {
+				...oldStorage,
+				[action.deckTitle]: {
+					...oldStorage[action.deckTitle],
+					questions: oldStorage[action.deckTitle].questions.concat([
+						action.question
+					])
+				}
+			};
+			return newStorage;
+		})
+		.then(newStorage => {
+			AsyncStorage.mergeItem(
+				DECKS_STORAGE_KEY,
+				JSON.stringify(newStorage),
+				err => {
+					console.log(err);
+				}
+			).then(result => {
+				console.log("saveCardToDeck getItem: ");
+				console.log(JSON.parse(result));
+				return JSON.parse(result);
+			});
 		});
 };
 
@@ -79,8 +99,6 @@ export function setLocalNotification() {
 	AsyncStorage.getItem(NOTIFICATION_KEY)
 		.then(JSON.parse)
 		.then(data => {
-			console.log("getItem(NOTIFICATION_KEY)");
-			console.log(data);
 			if (data === null) {
 				Permissions.askAsync(Permissions.NOTIFICATIONS).then(
 					({ status }) => {
@@ -108,4 +126,10 @@ export function setLocalNotification() {
 				);
 			}
 		});
+}
+
+export function clearLocalNotification() {
+	return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+		Notifications.cancelAllScheduledNotificationsAsync()
+	);
 }
