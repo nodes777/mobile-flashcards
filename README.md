@@ -9,7 +9,7 @@ This is a flashcard app for Udacity's React Nanodegree program.
 
 ## Tested On:
 
-    Expo on Android 9 on a Nokia 7.1
+    Expo 2.11 on Android 9 on a Nokia 7.1
 
 ## Packages And Utilities
 

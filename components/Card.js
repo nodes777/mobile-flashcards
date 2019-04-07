@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import CardFront from "./CardFront";
 import Results from "./Results";
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 const styles = StyleSheet.create({
 	container: {
@@ -45,28 +46,27 @@ class Card extends React.Component {
 		answerIsShowing: false
 	};
 	render() {
-		console.log("Card: ");
-		console.log(this.props.navigation.state.params);
 		const deckTitle = this.props.navigation.state.params.deckTitle;
 		const deck = this.props.state[deckTitle];
 		const cardNumber = this.props.navigation.state.params.cardNumber + 1;
 		const cardTotal = deck.questions.length + 1;
 
 		const endOfDeck = cardNumber >= cardTotal;
-		console.log("cardNumber  " + cardNumber);
-		console.log("cardTotal " + cardTotal);
-		console.log("endOfDeck " + endOfDeck);
+
 		let question = null;
 		let answer = null;
 		if (!endOfDeck) {
 			question = deck.questions[cardNumber - 1].question;
 			answer = deck.questions[cardNumber - 1].answer;
 		}
+		if (endOfDeck) {
+			clearLocalNotification().then(setLocalNotification());
+		}
 		const score = this.props.navigation.state.params.score || {
 			correct: 0,
 			incorrect: 0
 		};
-		console.log(score);
+
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text>Card</Text>

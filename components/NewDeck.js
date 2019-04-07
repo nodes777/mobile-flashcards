@@ -41,6 +41,7 @@ class NewDeck extends React.Component {
 	};
 	render() {
 		const { dispatch } = this.props;
+		const { text } = this.state;
 		return (
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<TextInput
@@ -51,23 +52,25 @@ class NewDeck extends React.Component {
 						width: 260
 					}}
 					onChangeText={text => this.setState({ text })}
-					value={this.state.text}
+					value={text}
 				/>
 
 				<TouchableOpacity
-					disabled={this.state.text === ""}
+					disabled={text === ""}
 					onPress={() => {
-						saveDeckTitle(this.state.text).then(results => {
+						saveDeckTitle(text).then(results => {
 							dispatch(addDeckTitle(results));
-							this.props.navigation.navigate("Home");
+							this.props.navigation.navigate("DeckView", {
+								deckTitle: text,
+								questions: 0,
+								cardNumber: 0
+							});
 						});
 					}}
 				>
 					<View
 						style={
-							this.state.text === ""
-								? styles.buttonDisabled
-								: styles.button
+							text === "" ? styles.buttonDisabled : styles.button
 						}
 					>
 						<Text style={styles.buttonText}>Save Deck</Text>

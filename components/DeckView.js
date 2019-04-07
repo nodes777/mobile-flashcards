@@ -51,7 +51,7 @@ class DeckView extends React.Component {
 						});
 					}}
 				>
-					<Text style={styles.buttonText}>Start</Text>
+					<Text style={styles.buttonText}>Start Quiz</Text>
 				</TouchableOpacity>
 			</View>
 		);

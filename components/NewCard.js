@@ -21,7 +21,9 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 		width: 260,
 		alignItems: "center",
-		backgroundColor: "#2196F3"
+		backgroundColor: "#2196F3",
+		padding: 20,
+		color: "white"
 	},
 	buttonDisabled: {
 		marginBottom: 30,
@@ -40,9 +42,17 @@ class NewCard extends React.Component {
 		question: "",
 		answer: ""
 	};
+	updateQuestionState(question) {
+		this.setState({ question });
+	}
+	updateAnswerState(answer) {
+		this.setState({ answer });
+	}
+	handleSubmit() {}
 	render() {
 		console.log("NewCard: ");
 		console.log(this.props);
+		const { question, answer } = this.state;
 		return (
 			<KeyboardAvoidingView style={styles.container}>
 				<Text>New Card</Text>
@@ -54,8 +64,10 @@ class NewCard extends React.Component {
 						borderWidth: 1,
 						width: 260
 					}}
-					onChangeText={question => this.setState({ question })}
-					value={this.state.question}
+					onChangeText={question =>
+						this.updateQuestionState(question)
+					}
+					value={question}
 				/>
 
 				<Text>Answer</Text>
@@ -66,13 +78,12 @@ class NewCard extends React.Component {
 						borderWidth: 1,
 						width: 260
 					}}
-					onChangeText={answer => this.setState({ answer })}
-					value={this.state.answer}
+					onChangeText={answer => this.updateAnswerState(answer)}
+					value={answer}
 				/>
 				<TouchableOpacity
 					disabled={this.state.text === ""}
 					onPress={() => {
-						//updates redux first
 						const action = this.props.dispatch(
 							addCard(
 								this.state,
@@ -86,17 +97,13 @@ class NewCard extends React.Component {
 						// Go Home
 						this.props.navigation.navigate("Home");
 					}}
+					style={
+						this.statetext === ""
+							? styles.buttonDisabled
+							: styles.button
+					}
 				>
-					<View
-						style={
-							this.state.question === "" ||
-							this.state.answer === ""
-								? styles.buttonDisabled
-								: styles.button
-						}
-					>
-						<Text style={styles.buttonText}>Save Card</Text>
-					</View>
+					<Text>Save Card</Text>
 				</TouchableOpacity>
 			</KeyboardAvoidingView>
 		);
